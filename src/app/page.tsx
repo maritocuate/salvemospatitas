@@ -1,4 +1,7 @@
+import { Button, buttonVariants } from '@/components/ui/button'
 import Foundraising from './components/Foundraising'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -11,6 +14,23 @@ export default function Home() {
           Juntamos fondos para las causas mas votadas. Una manera de
           organizarnos con los que mas lo necesitan.
         </p>
+
+        <Link
+          className={buttonVariants({
+            size: 'lg',
+            className: 'mt-5',
+          })}
+          href="/donate"
+        >
+          Participá
+          <Image
+            className="ml-2"
+            src="/paw.png"
+            alt="pawprint"
+            width={15}
+            height={15}
+          />
+        </Link>
       </div>
       <Foundraising />
     </main>
