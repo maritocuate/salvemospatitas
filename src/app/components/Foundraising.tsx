@@ -95,7 +95,7 @@ export default function Foundraising() {
       render.canvas.remove()
       render.textures = {}
     }
-  }, [percentage])
+  }, [percentage, currentBodies])
 
   return (
     <div className="w-full h-full flex justify-center items-center">
