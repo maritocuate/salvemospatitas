@@ -14,11 +14,14 @@ import {
 
 export default function Foundraising() {
   const matterContainer = useRef<HTMLDivElement>(null)
-  const [percentage, setPercentage] = useState<number>(50)
+  const [percentage, setPercentage] = useState<number>(7)
+
+  const maxBodies = 260
+  const currentBodies = Math.floor((percentage / 100) * maxBodies)
 
   useEffect(() => {
     const engine = Engine.create()
-    engine.gravity.y = 0.1
+    engine.gravity.y = 0.4
 
     const render = Render.create({
       element: matterContainer.current!,
@@ -40,21 +43,21 @@ export default function Foundraising() {
     const leftWall = Bodies.rectangle(-7, 320, 10, 650, {
       isStatic: true,
     })
-    const rightWall = Bodies.rectangle(630, 500, 60, 600, {
+    const rightWall = Bodies.rectangle(630, 320, 60, 650, {
       isStatic: true,
       render: {
         fillStyle: 'transparent',
       },
     })
-    const porcentageBox = Bodies.circle(300, 300, 50, {
+    const porcentageBox = Bodies.circle(300, 300, 45, {
       isStatic: true,
       label: 'percentageBox',
       render: {
         fillStyle: 'black',
       },
     })
-    const bones = Array.from({ length: 100 }, (_, i) =>
-      Bodies.circle(Math.random() * 500, Math.random() * 40, 20, {
+    const bones = Array.from({ length: currentBodies }, (_, i) =>
+      Bodies.circle(Math.random() * 400, Math.random() * 40, 20, {
         render: {
           sprite: {
             texture: './paw.png',
@@ -82,7 +85,6 @@ export default function Foundraising() {
       )
 
       if (percentageBox) {
-        // Actualizar el texto en el cuerpo porcentageBox
         Body.set(percentageBox, 'label', percentage.toString())
       }
     })
@@ -97,7 +99,10 @@ export default function Foundraising() {
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <div className="text-4xl absolute mb-10 text-primary">{percentage}%</div>
+      <div className="flex items-center text-5xl absolute mb-12 text-yellow-300 italic">
+        {percentage}
+        <span className="text-sm">%</span>
+      </div>
       <div
         id="box-of-bones"
         className="bg-gray-100 rounded-sm shadow-md"
