@@ -2,7 +2,7 @@ import Foundraising from './components/Foundraising'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="w-full h-full flex flex-col justify-center items-center">
       <Foundraising />
       <h1>Salvemos</h1>
     </main>
