@@ -14,6 +14,7 @@ import {
 
 export default function Foundraising() {
   const matterContainer = useRef<HTMLDivElement>(null)
+  const [canvasWidth, setCanvasWidth] = useState<number>(600)
   const [percentage, setPercentage] = useState<number>(7)
 
   const maxBodies = 260
@@ -27,7 +28,7 @@ export default function Foundraising() {
       element: matterContainer.current!,
       engine: engine,
       options: {
-        width: 600,
+        width: canvasWidth, //600,
         height: 650,
         wireframes: false,
         background: 'transparent',
@@ -49,7 +50,7 @@ export default function Foundraising() {
         fillStyle: 'transparent',
       },
     })
-    const porcentageBox = Bodies.circle(300, 300, 45, {
+    const porcentageBox = Bodies.circle(canvasWidth / 2, 300, 45, {
       isStatic: true,
       label: 'percentageBox',
       render: {
@@ -95,7 +96,21 @@ export default function Foundraising() {
       render.canvas.remove()
       render.textures = {}
     }
-  }, [percentage, currentBodies])
+  }, [percentage, currentBodies, canvasWidth])
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newCanvasWidth = matterContainer.current?.clientWidth || 600
+      setCanvasWidth(newCanvasWidth)
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <div className="w-full h-full flex justify-center items-center">
