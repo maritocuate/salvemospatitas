@@ -1,13 +1,13 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import Matter from 'matter-js'
+import { Engine, Render, World, Bodies, Runner } from 'matter-js'
 
 export default function Foundraising() {
   useEffect(() => {
-    const engine = Matter.Engine.create()
+    const engine = Engine.create()
 
-    const render = Matter.Render.create({
+    const render = Render.create({
       element: document.body,
       engine: engine,
       options: {
@@ -17,17 +17,17 @@ export default function Foundraising() {
       },
     })
 
-    const ground = Matter.Bodies.rectangle(400, 660, 810, 20, {
+    const ground = Bodies.rectangle(400, 660, 810, 20, {
       isStatic: true,
     })
-    const leftWall = Matter.Bodies.rectangle(-7, 320, 10, 650, {
+    const leftWall = Bodies.rectangle(-7, 320, 10, 650, {
       isStatic: true,
     })
-    const rightWall = Matter.Bodies.rectangle(630, 500, 60, 600, {
+    const rightWall = Bodies.rectangle(630, 500, 60, 600, {
       isStatic: true,
     })
     const bones = Array.from({ length: 100 }, (_, i) =>
-      Matter.Bodies.circle(Math.random() * 500, Math.random() * 40, 20, {
+      Bodies.circle(Math.random() * 500, Math.random() * 40, 20, {
         render: {
           sprite: {
             texture: './paw.png',
@@ -39,16 +39,14 @@ export default function Foundraising() {
       })
     )
 
-    Matter.World.add(engine.world, [ground, leftWall, rightWall, ...bones])
-    Matter.Engine.run(engine)
-    Matter.Render.run(render)
+    World.add(engine.world, [ground, leftWall, rightWall, ...bones])
+    Runner.run(engine)
+    Render.run(render)
 
     return () => {
-      Matter.Engine.clear(engine)
-      Matter.Render.stop(render)
+      Engine.clear(engine)
+      Render.stop(render)
       render.canvas.remove()
-      render.canvas = null
-      render.context = null
       render.textures = {}
     }
   }, [])
