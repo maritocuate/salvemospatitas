@@ -1,9 +1,17 @@
-import { Button, buttonVariants } from '@/components/ui/button'
+import {
+  LoginLink,
+  getKindeServerSession,
+} from '@kinde-oss/kinde-auth-nextjs/server'
+import { buttonVariants } from '@/components/ui/button'
 import Foundraising from './components/Foundraising'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function Home() {
+export default async function Home() {
+  const { getUser, isAuthenticated } = getKindeServerSession()
+  const user = await getUser()
+  const authStatus = await isAuthenticated()
+
   return (
     <main className="mx-auto max-w-7xl md:p-3">
       <div className="mx-auto w-full max-w-screen-xl px-2.5 my-5 md:mb-10 md:mt-0 flex flex-col items-center justify-center text-center">
@@ -15,22 +23,40 @@ export default function Home() {
           organizarnos con los que mas lo necesitan.
         </p>
 
-        <Link
-          className={buttonVariants({
-            size: 'lg',
-            className: 'mt-5',
-          })}
-          href="/donate"
-        >
-          Participá
-          <Image
-            className="ml-2"
-            src="/paw.png"
-            alt="pawprint"
-            width={15}
-            height={15}
-          />
-        </Link>
+        {!user && !authStatus ? (
+          <LoginLink
+            className={buttonVariants({
+              size: 'lg',
+              className: 'mt-5',
+            })}
+          >
+            Entrá para participar
+            <Image
+              className="ml-2"
+              src="/paw.png"
+              alt="pawprint"
+              width={15}
+              height={15}
+            />
+          </LoginLink>
+        ) : (
+          <Link
+            className={buttonVariants({
+              size: 'lg',
+              className: 'mt-5',
+            })}
+            href="/donate"
+          >
+            Participá
+            <Image
+              className="ml-2"
+              src="/paw.png"
+              alt="pawprint"
+              width={15}
+              height={15}
+            />
+          </Link>
+        )}
       </div>
       <Foundraising />
     </main>
