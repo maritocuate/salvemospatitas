@@ -1,10 +1,14 @@
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { PawPrint } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from './ui/button'
 import UserMenu from './UserMenu'
 
-export default function Navbar() {
+export default async function Navbar() {
+  const { isAuthenticated } = getKindeServerSession()
+  const authStatus = await isAuthenticated()
+
   const menus = [
     {
       name: 'Inicio',
@@ -17,10 +21,12 @@ export default function Navbar() {
     {
       name: 'Ustedes',
       path: '/you',
+      needsAuth: true,
     },
     {
       name: 'Votá',
       path: '/vote',
+      needsAuth: true,
     },
   ]
 
@@ -44,14 +50,16 @@ export default function Navbar() {
         {/* Buttons */}
         <div className="justify-self-center pb-5 md:block md:pb-0 md:mt-0">
           <div className="grid grid-cols-2 gap-2 flex-row md:flex">
-            {menus.map((item, idx) => (
-              <Button key={idx} variant={'secondary'} asChild>
-                <Link href={item.path}>
-                  {item.name}
-                  <PawPrint className="ml-2" size={15} />
-                </Link>
-              </Button>
-            ))}
+            {menus
+              .filter(item => (item.needsAuth ? authStatus : true))
+              .map((item, idx) => (
+                <Button key={idx} variant={'secondary'} asChild>
+                  <Link href={item.path}>
+                    {item.name}
+                    <PawPrint className="ml-2" size={15} />
+                  </Link>
+                </Button>
+              ))}
           </div>
         </div>
 
