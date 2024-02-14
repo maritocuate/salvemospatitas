@@ -9,6 +9,14 @@ export default async function Donate() {
 
   if (!user && !authStatus) redirect('/')
 
+  const userData = {
+    family_name: user?.family_name as string,
+    given_name: user?.given_name as string,
+    picture: user?.picture as string,
+    email: user?.email as string,
+    id: user?.id as string,
+  }
+
   return (
     <div className="mx-auto w-full px-2.5 md:px-20 md:mt-3 mb-8 mt-14 text-center max-w-5xl">
       <div className="mx-auto mb-6 sm:max-w-xl">
@@ -19,7 +27,7 @@ export default async function Donate() {
         </p>
       </div>
 
-      <Options user={user} />
+      <Options user={userData} />
     </div>
   )
 }

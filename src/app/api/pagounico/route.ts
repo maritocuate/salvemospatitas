@@ -1,4 +1,4 @@
-import { MercadoPagoConfig, Payment, Preference } from 'mercadopago'
+import { MercadoPagoConfig, Preference } from 'mercadopago'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -60,8 +60,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         external_reference: 'Unica',
         expires: true,
         expiration_date_from: new Date().toISOString(),
-        //expiration_date_from: '2024-02-01T12:00:00.000-04:00',
-        //expiration_date_to: '2024-02-28T12:00:00.000-04:00',
         expiration_date_to: new Date(tomorrow).toISOString(),
       },
     })
