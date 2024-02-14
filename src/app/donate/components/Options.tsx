@@ -17,7 +17,17 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-export default function Options() {
+interface OptionsProps {
+  user: {
+    family_name: string
+    given_name: string
+    picture?: string
+    email: string
+    id: string
+  }
+}
+
+export default function Options({ user }: OptionsProps) {
   const router = useRouter()
 
   const pricingItems = [
@@ -88,7 +98,13 @@ export default function Options() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ amount: amount }),
+      body: JSON.stringify({
+        id: user.id,
+        name: user.given_name,
+        surname: user.family_name,
+        email: user.email,
+        amount: amount,
+      }),
     })
 
     if (response.ok) {

@@ -19,7 +19,7 @@ export default async function Donate() {
         </p>
       </div>
 
-      <Options />
+      <Options user={user} />
     </div>
   )
 }
