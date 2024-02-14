@@ -1,11 +1,22 @@
+export enum UniqueAmount {
+  BASE = 2000,
+  MEDIA = 10000,
+  ALTA = 50000,
+}
+
+export enum SuscripcionAmount {
+  BASE = 5000,
+  MEDIA = 10000,
+  ALTA = 50000,
+}
+
 export const PLANS = [
   {
     name: 'Unica',
     slug: 'unica',
     quota: 10,
-    pagesPerPdf: 5,
     price: {
-      amount: 2000,
+      amount: UniqueAmount.BASE,
       priceIds: {
         test: '',
         production: '',
@@ -16,7 +27,6 @@ export const PLANS = [
     name: 'Suscripcion',
     slug: 'suscripcion',
     quota: 50,
-    pagesPerPdf: 25,
     price: {
       amount: 5000,
       priceIds: {

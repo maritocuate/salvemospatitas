@@ -1,26 +1,34 @@
+'use client'
+
 import {
   Tooltip,
   TooltipProvider,
   TooltipTrigger,
   TooltipContent,
 } from '@/components/ui/tooltip'
-import { PLANS } from '@/components/config/mercadopago'
-import { cn } from '@/lib/utils'
+import {
+  PLANS,
+  SuscripcionAmount,
+  UniqueAmount,
+} from '@/components/config/mercadopago'
+import { cn, formatPrice } from '@/lib/utils'
 import { ArrowRight, Check, HelpCircle, Minus } from 'lucide-react'
-import Link from 'next/link'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export default function Donate() {
+  const router = useRouter()
+
   const pricingItems = [
     {
       plan: 'Unica',
-      tagline: 'Ayuda para la caúsa actual.',
+      tagline: 'Ayuda para la causa actual.',
       quota: 10,
       features: [
         {
-          text: 'Ayudá a la caúsa actual',
-          footnote: 'Tu aporte irá directo a la causa actual.',
+          text: 'Ayudá a la colecta actual',
+          footnote: 'Tu aporte irá directo a la colecta actual.',
         },
         {
           text: 'Aparacé en la lista de colaboradores',
@@ -49,8 +57,8 @@ export default function Donate() {
       quota: PLANS.find(p => p.slug === 'suscripcion')!.quota,
       features: [
         {
-          text: 'Ayudá a la caúsa actual',
-          footnote: 'Tu aporte irá directo a la causa actual.',
+          text: 'Ayudá a la colecta actual',
+          footnote: 'Tu aporte irá directo a la colecta actual.',
         },
         {
           text: 'Aparacé en la lista de colaboradores',
@@ -71,6 +79,23 @@ export default function Donate() {
       ],
     },
   ]
+
+  const handlePay = async (amount: number, type: 'unica' | 'suscripcion') => {
+    const url = type === 'unica' ? '/api/pagounico' : '/api/suscription'
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount: amount }),
+    })
+
+    if (response.ok) {
+      const data = await response.json()
+      router.push(data.init_point)
+    }
+  }
 
   return (
     <div className="mx-auto w-full px-2.5 md:px-20 md:mt-3 mb-8 mt-14 text-center max-w-5xl">
@@ -161,66 +186,60 @@ export default function Donate() {
                 <div className="p-5 space-y-3">
                   {plan === 'Unica' ? (
                     <>
-                      <Link
-                        href="/dashboard"
-                        className={buttonVariants({
-                          className: 'w-full',
-                          variant: 'outline',
-                        })}
+                      <Button
+                        className="w-full"
+                        variant="outline"
+                        onClick={() => handlePay(UniqueAmount.BASE, 'unica')}
                       >
-                        $ 2,000
+                        $ {formatPrice(UniqueAmount.BASE)}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Link>
-                      <Link
-                        href="/dashboard"
-                        className={buttonVariants({
-                          className: 'w-full',
-                          variant: 'outline',
-                        })}
+                      </Button>
+                      <Button
+                        className="w-full"
+                        variant="outline"
+                        onClick={() => handlePay(UniqueAmount.MEDIA, 'unica')}
                       >
-                        $ 10,000
+                        $ {formatPrice(UniqueAmount.MEDIA)}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Link>
-                      <Link
-                        href="/dashboard"
-                        className={buttonVariants({
-                          className: 'w-full',
-                        })}
+                      </Button>
+                      <Button
+                        className="w-full"
+                        onClick={() => handlePay(UniqueAmount.ALTA, 'unica')}
                       >
-                        $ 50,000
+                        $ {formatPrice(UniqueAmount.ALTA)}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Link>
+                      </Button>
                     </>
                   ) : (
                     <>
-                      <Link
-                        href="/sign-in"
-                        className={buttonVariants({
-                          className: 'w-full',
-                        })}
+                      <Button
+                        className="w-full"
+                        onClick={() =>
+                          handlePay(SuscripcionAmount.BASE, 'suscripcion')
+                        }
                       >
-                        $ 5,000
+                        $ {formatPrice(SuscripcionAmount.BASE)}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Link>
-                      <Link
-                        href="/sign-in"
-                        className={buttonVariants({
-                          className: 'w-full',
-                        })}
+                      </Button>
+                      <Button
+                        className="w-full"
+                        onClick={() =>
+                          handlePay(SuscripcionAmount.MEDIA, 'suscripcion')
+                        }
                       >
-                        $ 10,000
+                        $ {formatPrice(SuscripcionAmount.MEDIA)}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Link>
-                      <Link
-                        href="/sign-in"
-                        className={buttonVariants({
-                          className:
-                            'w-full rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white',
-                        })}
+                      </Button>
+
+                      <Button
+                        className="w-full rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white"
+                        onClick={() =>
+                          handlePay(SuscripcionAmount.ALTA, 'suscripcion')
+                        }
                       >
-                        $ 50,000
+                        $ {formatPrice(SuscripcionAmount.ALTA)}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Link>
+                      </Button>
                     </>
                   )}
                 </div>
