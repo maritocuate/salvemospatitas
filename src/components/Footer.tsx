@@ -11,7 +11,7 @@ export default async function Footer() {
 
   return (
     <footer className="bg-white w-full border-t mt-7 text-xs">
-      <div className="justify-between items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
+      <div className="flex justify-between items-center max-w-screen-xl py-3 px-9 mx-auto md:px-8 md:py-0">
         <div className="flex justify-center py-3 md:py-5 md:block">
           <Link
             href="https://www.instagram.com/salvemospatitas.ok/"
@@ -28,7 +28,7 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className="flex justify-center pb-5 md:block md:pb-0 md:mt-0 text-underline text-primary">
+        <div className="flex justify-center md:block md:pb-0 md:mt-0 text-underline text-primary">
           <LogoutLink className="flex items-center">
             Salir
             <LogOut size={18} className="ml-1" />
