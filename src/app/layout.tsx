@@ -4,6 +4,7 @@ import './globals.css'
 
 import { cn } from '@/lib/utils'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 const roboto = Roboto({
   weight: '500',
@@ -30,6 +31,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   )
