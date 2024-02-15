@@ -248,6 +248,15 @@ export default function Options({ user }: OptionsProps) {
                         $ {formatPrice(SuscripcionAmount.ALTA)}
                         <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Button>
+
+                      <Button
+                        className="w-full"
+                        variant="outline"
+                        onClick={() => handlePay(5, 'unica')}
+                      >
+                        $ 5
+                        <ArrowRight className="h-5 w-5 ml-1.5" />
+                      </Button>
                     </>
                   )}
                 </div>

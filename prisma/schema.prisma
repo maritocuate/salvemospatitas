@@ -22,17 +22,19 @@ model User {
   Payments Payment[]
 }
 
-enum PaymentType {
-  UNICO
-  SUSCRIPCION
-}
-
 model Payment {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  type PaymentType
-  text String
-  createdAt DateTime @default(now())
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  mercadopagoPaymentId  String
 
-  userId String @db.ObjectId
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mp_payment_method_id  String
+  mp_payment_type_id    String
+  mp_status             String
+  mp_status_detail      String
+  mp_interaction_type   String
+  mp_transaction_amount Int
+
+  createdAt             DateTime @default(now())
+
+  userEmail String 
+  user User @relation(fields: [userEmail], references: [email], onDelete: Cascade)
 }
