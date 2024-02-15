@@ -44,7 +44,7 @@ export default function Foundraising() {
     const leftWall = Bodies.rectangle(-7, 320, 10, 650, {
       isStatic: true,
     })
-    const rightWall = Bodies.rectangle(630, 320, 60, 650, {
+    const rightWall = Bodies.rectangle(canvasWidth + 30, 320, 60, 650, {
       isStatic: true,
       render: {
         fillStyle: 'transparent',
@@ -120,8 +120,8 @@ export default function Foundraising() {
       </div>
       <div
         id="box-of-bones"
-        className="bg-gray-100 rounded-sm shadow-md"
         ref={matterContainer}
+        className="bg-gray-100 w-full md:w-auto rounded-sm shadow-md"
       />
     </div>
   )
