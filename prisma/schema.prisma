@@ -38,3 +38,13 @@ model Payment {
   userEmail String 
   user User @relation(fields: [userEmail], references: [email], onDelete: Cascade)
 }
+
+model Foundraising {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId 
+  for           String
+  description   String
+  goal          Int
+  now           Int
+
+  createdAt     DateTime @default(now())
+}
