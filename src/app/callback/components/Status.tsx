@@ -24,16 +24,6 @@ export default function Status() {
       router.push('/')
     }
     setTimeout(() => router.push('/'), 4000)
-
-    /* fetch('/api/webhook', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        status,
-      }),
-    }).then(res => console.log(res)) */
   }, [status, router, setTitle, setInfo])
 
   return (
