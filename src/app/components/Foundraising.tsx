@@ -12,7 +12,12 @@ import {
   Body,
 } from 'matter-js'
 
-export default function Foundraising() {
+type FoundraisingProps = {
+  goal: number
+  now: number
+}
+
+export default function Foundraising({ goal, now }: FoundraisingProps) {
   const matterContainer = useRef<HTMLDivElement>(null)
   const [canvasWidth, setCanvasWidth] = useState<number>(600)
   const [percentage, setPercentage] = useState<number>(7)
@@ -21,6 +26,14 @@ export default function Foundraising() {
   const currentBodies = Math.floor((percentage / 100) * maxBodies)
 
   useEffect(() => {
+    let goalPercentage = Math.round((now / goal) * 100)
+    if (goalPercentage > 99) {
+      goalPercentage = 98
+    } else if (goalPercentage < 1) {
+      goalPercentage = 1
+    }
+    setPercentage(goalPercentage)
+
     const engine = Engine.create()
     engine.gravity.y = 0.4
 
@@ -96,7 +109,7 @@ export default function Foundraising() {
       render.canvas.remove()
       render.textures = {}
     }
-  }, [percentage, currentBodies, canvasWidth])
+  }, [percentage, currentBodies, canvasWidth, goal, now])
 
   useEffect(() => {
     const handleResize = () => {
@@ -116,7 +129,7 @@ export default function Foundraising() {
     <div className="w-full h-full flex justify-center items-center">
       <div className="flex items-center text-5xl absolute mb-12 text-yellow-300 italic">
         {percentage}
-        <span className="text-sm">%</span>
+        <span className="text-sm space-x-0">%</span>
       </div>
       <div
         id="box-of-bones"

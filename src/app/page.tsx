@@ -7,11 +7,15 @@ import Foundraising from './components/Foundraising'
 import Image from 'next/image'
 import Link from 'next/link'
 import CauseInfo from './components/CauseInfo'
+import getCurrentCause from './actions/GetCurrentCause'
 
 export default async function Home() {
   const { getUser, isAuthenticated } = getKindeServerSession()
   const user = await getUser()
   const authStatus = await isAuthenticated()
+
+  const currentCause: any = await getCurrentCause()
+  const { to, description, goal, now } = currentCause
 
   return (
     <main className="mx-auto max-w-7xl md:p-3">
@@ -59,8 +63,8 @@ export default async function Home() {
           </Link>
         )}
       </div>
-      <CauseInfo />
-      <Foundraising />
+      <CauseInfo to={to} description={description} />
+      <Foundraising goal={goal} now={now} />
     </main>
   )
 }
