@@ -37,14 +37,19 @@ model Payment {
 
   userEmail String 
   user User @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+
+  foundraisingId String? @db.ObjectId
+  foundraising Foundraising? @relation(fields: [foundraisingId], references: [id], onDelete: Cascade)
 }
 
 model Foundraising {
   id            String @id @default(auto()) @map("_id") @db.ObjectId 
-  for           String
+  to            String
   description   String
   goal          Int
   now           Int
 
   createdAt     DateTime @default(now())
+
+  payments      Payment[]
 }

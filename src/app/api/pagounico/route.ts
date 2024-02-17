@@ -5,9 +5,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { amount, name, email, surname, id } = await req.json()
   const tomorrow = Date.now() + 24 * 60 * 60 * 1000
 
-  console.log('email')
-  console.log(email)
-
   try {
     const client = new MercadoPagoConfig({
       accessToken: process.env.MERCADOLIBRE_TOKEN || '',
@@ -59,7 +56,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           installments: 1,
         },
         notification_url:
-          'https://bf5d-2803-9800-9091-74ec-ada5-9ddf-dfc8-9e1b.ngrok-free.app/api/receiveWebhook',
+          'https://f79c-2803-9800-9091-74ec-6d35-a6d0-e22e-9113.ngrok-free.app/api/receiveWebhook',
         statement_descriptor: 'SALVEMOS PATITAS ONG',
         external_reference: email,
         expires: true,

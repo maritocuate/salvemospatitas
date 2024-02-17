@@ -3,6 +3,15 @@ import { MercadoPagoConfig, Payment } from 'mercadopago'
 import { db } from '@/db'
 
 export async function POST(req: NextRequest, res: NextResponse) {
+  const lastFoundraising = await db.foundraising.findMany({
+    take: 1,
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
+  const lastFoundraisingId = lastFoundraising[0]?.id
+  if (!lastFoundraisingId) return new NextResponse(null, { status: 500 })
+
   try {
     const data = await req.json()
 
@@ -27,6 +36,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           mp_status_detail: paymentResult.status_detail as string,
           mp_transaction_amount: paymentResult.transaction_amount as number,
           userEmail: paymentResult.external_reference as string,
+          foundraisingId: lastFoundraisingId,
         },
       })
     }
