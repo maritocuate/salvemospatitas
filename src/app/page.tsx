@@ -6,7 +6,7 @@ import { buttonVariants } from '@/components/ui/button'
 import Foundraising from './components/Foundraising'
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import CauseInfo from './components/CauseInfo'
 
 export default async function Home() {
   const { getUser, isAuthenticated } = getKindeServerSession()
@@ -59,6 +59,7 @@ export default async function Home() {
           </Link>
         )}
       </div>
+      <CauseInfo />
       <Foundraising />
     </main>
   )
