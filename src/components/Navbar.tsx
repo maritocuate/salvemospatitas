@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from './ui/button'
 import UserMenu from './UserMenu'
+import ThemeButton from './ThemeButton'
 
 export default async function Navbar() {
   const { isAuthenticated } = getKindeServerSession()
@@ -31,7 +32,7 @@ export default async function Navbar() {
   ]
 
   return (
-    <nav className="bg-white w-full border-b md:border-0">
+    <nav className="w-full border-b md:border-0">
       <div className="justify-between items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
         {/* Logo */}
         <div className="flex justify-center py-3 md:py-5 md:block">
@@ -64,7 +65,8 @@ export default async function Navbar() {
         </div>
 
         {/* User */}
-        <div className="flex justify-center pb-5 md:block md:pb-0 md:mt-0">
+        <div className="flex justify-center items-center pb-5 space-x-2 md:pb-0 md:mt-0">
+          <ThemeButton />
           <UserMenu />
         </div>
       </div>

@@ -5,6 +5,7 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { ThemeProvider } from '@/components/theme-provider'
 
 const roboto = Roboto({
   weight: '500',
@@ -29,9 +30,16 @@ export default function RootLayout({
           roboto.className
         )}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )

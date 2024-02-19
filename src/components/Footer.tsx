@@ -10,7 +10,7 @@ export default async function Footer() {
   const authStatus = await isAuthenticated()
 
   return (
-    <footer className="bg-white w-full border-t mt-7 text-xs">
+    <footer className="w-full border-t mt-7 text-xs">
       <div className="flex justify-between items-center max-w-screen-xl py-3 px-9 mx-auto md:px-8 md:py-0">
         <div className="flex justify-center py-3 md:py-5 md:block">
           <Link
