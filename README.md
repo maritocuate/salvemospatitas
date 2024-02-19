@@ -2,7 +2,7 @@
 
 This application is for an ONG that raises funds for animal shelters.
 
-![screenshot](https://github.com/maritocuate/salvemospatitas/tree/main/public/screenshot.png)
+![screenshot](/public/screenshot.png?raw=true)
 
 ## Table of Contents
 
