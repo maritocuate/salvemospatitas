@@ -1,3 +1,4 @@
+import { absoluteUrl } from '@/lib/utils'
 import { MercadoPagoConfig, Preference } from 'mercadopago'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -31,9 +32,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
           email,
         },
         back_urls: {
-          success: 'http://localhost:3000/callback?status=success',
-          failure: 'http://localhost:3000/callback?status=failure',
-          pending: 'http://localhost:3000/callback?status=pending',
+          success: absoluteUrl('/callback?status=success'),
+          failure: absoluteUrl('/callback?status=failure'),
+          pending: absoluteUrl('/callback?status=pending'),
         },
         auto_return: 'approved',
         payment_methods: {
