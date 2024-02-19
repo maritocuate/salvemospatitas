@@ -61,7 +61,7 @@ export default function Options({ user }: OptionsProps) {
         },
       ],
     },
-    {
+    /* {
       plan: 'Suscripcion',
       tagline: 'Mensualmente participaras de diversas causas.',
       quota: PLANS.find(p => p.slug === 'suscripcion')!.quota,
@@ -87,7 +87,7 @@ export default function Options({ user }: OptionsProps) {
           footnote: 'A fin de mes se sortean productos de nuestros sponsors.',
         },
       ],
-    },
+    }, */
   ]
 
   const handlePay = async (amount: number, type: 'unica' | 'suscripcion') => {
@@ -115,9 +115,9 @@ export default function Options({ user }: OptionsProps) {
 
   return (
     <>
-      <div className="pt-12 grid grid-cols-1 gap-10 lg:grid-cols-2">
+      <div className="pt-12 grid grid-cols-1 gap-10 lg:grid-cols-1">
         <TooltipProvider>
-          {pricingItems.map(({ plan, tagline, quota, features }) => {
+          {pricingItems.map(({ plan, tagline, features }) => {
             const price =
               PLANS.find(p => p.slug === plan.toLowerCase())?.price.amount || 0
 
@@ -246,15 +246,6 @@ export default function Options({ user }: OptionsProps) {
                         }
                       >
                         $ {formatPrice(SuscripcionAmount.ALTA)}
-                        <ArrowRight className="h-5 w-5 ml-1.5" />
-                      </Button>
-
-                      <Button
-                        className="w-full"
-                        variant="outline"
-                        onClick={() => handlePay(5, 'unica')}
-                      >
-                        $ 5
                         <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Button>
                     </>
