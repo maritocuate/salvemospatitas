@@ -45,6 +45,23 @@ Before you get started, ensure that you have the following dependencies installe
    npm install
    ```
 
+4. Setup .env files:
+
+   ```bash
+    KINDE_CLIENT_ID=123
+    KINDE_CLIENT_SECRET=123
+    KINDE_ISSUER_URL=https://zxc.kinde.com
+    KINDE_SITE_URL=http://localhost:3000
+    KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
+    KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/auth-callback
+
+    MERCADOLIBRE_KEY=123
+    MERCADOLIBRE_TOKEN=123
+
+    DATABASE_URL="mongodb-url"
+    VERCEL_URL="https://zxc.com"
+   ```
+
 ## API Endpoints
 
 The API provides the following endpoints:
