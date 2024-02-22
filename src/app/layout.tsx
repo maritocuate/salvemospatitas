@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
 import { cn } from '@/lib/utils'
@@ -41,6 +42,7 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId={process.env.GOOGLEANALYTICS_ID || ''} />
     </html>
   )
 }
