@@ -141,9 +141,9 @@ export default function Options({ user }: OptionsProps) {
                     {plan}
                   </h3>
                   <p className="text-gray-500">{tagline}</p>
-                  <p className="my-5 font-display text-6xl font-semibold">
+                  {/* <p className="my-5 font-display text-6xl font-semibold">
                     ${price}
-                  </p>
+                  </p> */}
                 </div>
 
                 <div className="border-t border-gray-200" />
