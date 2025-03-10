@@ -3,13 +3,7 @@ import { NextResponse } from 'next/server'
 
 const getPartners = async (): Promise<NextResponse> => {
   try {
-    const partners = await db.user.findMany({
-      where: {
-        Payments: {
-          some: {},
-        },
-      },
-    })
+    const partners = await db.user.findMany()
     if (!partners) return new NextResponse(null, { status: 500 })
 
     return NextResponse.json(partners, { status: 200 })
