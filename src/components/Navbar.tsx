@@ -24,11 +24,6 @@ export default async function Navbar() {
       path: '/you',
       needsAuth: true,
     },
-    {
-      name: 'Votá',
-      path: '/vote',
-      needsAuth: true,
-    },
   ]
 
   return (
