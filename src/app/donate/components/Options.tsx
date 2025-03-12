@@ -61,7 +61,7 @@ export default function Options({ user }: OptionsProps) {
         },
       ],
     },
-    /* {
+    {
       plan: 'Suscripcion',
       tagline: 'Mensualmente participaras de diversas causas.',
       quota: PLANS.find(p => p.slug === 'suscripcion')!.quota,
@@ -87,7 +87,7 @@ export default function Options({ user }: OptionsProps) {
           footnote: 'A fin de mes se sortean productos de nuestros sponsors.',
         },
       ],
-    }, */
+    },
   ]
 
   const handlePay = async (amount: number, type: 'unica' | 'suscripcion') => {
@@ -115,7 +115,7 @@ export default function Options({ user }: OptionsProps) {
 
   return (
     <>
-      <div className="pt-12 grid grid-cols-1 gap-10 lg:grid-cols-1">
+      <div className="pt-12 grid grid-cols-1 gap-10 lg:grid-cols-2">
         <TooltipProvider>
           {pricingItems.map(({ plan, tagline, features }) => {
             const price =
